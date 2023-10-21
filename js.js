@@ -1,37 +1,51 @@
-document.addEventListener('DOMContentLoaded', function() {
-    function playGame() {
-        const randomNum1 = Math.floor(Math.random() * 3) + 1;
-        const randomNum2 = Math.floor(Math.random() * 3) + 1;
+function Game() {
+  // Generate two random numbers in the range of 1 - 3
+  let random1 = Math.floor(Math.random() * 3) + 1; // 1-3
+  let random2 = Math.floor(Math.random() * 3) + 1; // 1-3
 
-        document.getElementById('player1').setAttribute('src', getImagePath(randomNum1));
-        document.getElementById('player2').setAttribute('src', getImagePath(randomNum2));
+  // Define image filenames based on the random numbers
+  let randomImageName1;
+  let randomImageName2;
 
-        updateResult(randomNum1, randomNum2);
-    }
+  // Assign the appropriate image filenames based on the random numbers
+  if (random1 === 1) {
+    randomImageName1 = "rock.png";
+  } else if (random1 === 2) {
+    randomImageName1 = "scissors.png";
+  } else {
+    randomImageName1 = "paper.png";
+  }
 
-    function getImagePath(number) {
-        switch (number) {
-            case 1:
-                return 'images/rock.png';
-            case 2:
-                return 'images/scissor.png';
-            case 3:
-                return 'images/paper.png';
-            default:
-                return '';
-        }
-    }
+  if (random2 === 1) {
+    randomImageName2 = "rock.png";
+  } else if (random2 === 2) {
+    randomImageName2 = "scissors.png";
+  } else {
+    randomImageName2 = "paper.png";
+  }
 
-    function updateResult(num1, num2) {
-        const resultElement = document.getElementById('result');
-        if (num1 === num2) {
-            resultElement.innerText = 'It\'s a tie!';
-        } else if ((num1 === 1 && num2 === 2) || (num1 === 2 && num2 === 3) || (num1 === 3 && num2 === 1)) {
-            resultElement.innerText = 'Player 1 wins!';
-        } else {
-            resultElement.innerText = 'Player 2 wins!';
-        }
-    }
+  // Generate image sources
+  let ImageSource1 = "img/" + randomImageName1;
+  let ImageSource2 = "img/" + randomImageName2;
 
-    // You can add more functions or code here if needed.
-});
+  // Update the images
+  document.querySelectorAll("img")[0].setAttribute("src", ImageSource1);
+  document.querySelectorAll("img")[1].setAttribute("src", ImageSource2);
+
+  // Determine the winner based on the game rules
+  let result;
+  if (random1 === random2) {
+    result = "It's a tie!";
+  } else if (
+    (random1 === 1 && random2 === 2) ||
+    (random1 === 2 && random2 === 3) ||
+    (random1 === 3 && random2 === 1)
+  ) {
+    result = "Player 1 Wins!";
+  } else {
+    result = "Player 2 Wins!";
+  }
+
+  // Display the result
+  document.querySelector("h1").innerHTML = result;
+}
